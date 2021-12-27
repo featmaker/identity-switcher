@@ -1,5 +1,5 @@
 export interface DetectRecord {
-  key: string,
+  key?: string,
   detectDomain: string;
   targetDomain: string;
   cookie: string,
