@@ -31,6 +31,8 @@
 
 本插件使用 React 开发，功能比较简单，可以很方便的开发调试。
 
+UI 框架：[Semi-Design](https://semi.design/zh-CN/)
+
 ### `yarn start`
 
 启动项目，默认运行在 3000 端口
