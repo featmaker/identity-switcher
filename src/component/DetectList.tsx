@@ -1,19 +1,13 @@
 import React from "react";
 import { Table, Button, Space, Typography } from "@douyinfe/semi-ui";
 import { DetectRecord } from "../interfaces/index";
+import { ColumnProps } from "@douyinfe/semi-ui/lib/es/table";
 const { Text } = Typography;
-
-interface Column {
-  title: string;
-  width?: number;
-  dataIndex: string;
-  render?: (text: any, record: any, index: any) => JSX.Element;
-}
 
 interface Props {
   records: DetectRecord[];
   setRecords: any;
-  setActiveRecord: any;
+  setActiveRecord: (r: DetectRecord) => any;
 }
 
 function DetectList({ records, setRecords, setActiveRecord }: Props) {
@@ -21,7 +15,7 @@ function DetectList({ records, setRecords, setActiveRecord }: Props) {
     setRecords(records.filter((r) => r.key !== key));
   };
 
-  const columns: Column[] = [
+  const columns: ColumnProps[] = [
     {
       title: "检测域名",
       width: 150,

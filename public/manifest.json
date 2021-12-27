@@ -1,12 +1,12 @@
 {
-  "short_name": "Cookie Helper",
-  "name": "Lanqiao Cookie Helper",
-  "description": "Build an Extension!",
+  "short_name": "Cookie Sharer",
+  "name": "Cookie Sharer",
+  "description": "跨域名间共享 Cookie，适用于本地与 staging 环境同步登录状态",
   "version": "1.0",
   "manifest_version": 3,
   "action": {
     "default_popup": "index.html",
-    "default_title": "蓝桥 Cookie 助手"
+    "default_title": "Cookie Sharer"
   },
   "background": {
     "service_worker": "background.js"

@@ -1,5 +1,4 @@
-# 蓝桥 Cookie 助手（插件）
-
+# Cookie 共享助手（Cookie Sharer）
 
 ## 开发背景
 
