@@ -56,4 +56,12 @@ UI 框架：[Semi-Design](https://semi.design/zh-CN/)
 ![image](https://user-images.githubusercontent.com/11270415/147488407-2ae789e0-ec80-4350-ab2e-8508dc98a3a0.png)
 
 
+## 使用方法
+
+手动 `点击打开插件` 页面或者点击 `同步 Cookie` 按钮，提示：`同步成功` 即可刷新页面后生效。
+
+## TODO
+
+- [ ] 全自动同步，无需手动
+
 
