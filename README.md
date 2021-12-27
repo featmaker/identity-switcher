@@ -51,6 +51,7 @@
 1. 本地克隆项目，安装依赖，打包生产环境代码到 `build` 目录下。
 2. 在 Chrome 扩展程序管理页面，选择 `加载已解压的扩展程序` 按钮，选择上面生成的 `build` 目录。
 
-![image](https://user-images.githubusercontent.com/11270415/147485439-44628ea1-fb34-4402-924f-008d1f2e6959.png)
+![image](https://user-images.githubusercontent.com/11270415/147488407-2ae789e0-ec80-4350-ab2e-8508dc98a3a0.png)
+
 
 
