@@ -58,13 +58,3 @@ UI 框架：[Semi-Design](https://semi.design/zh-CN/)
 <img width="413" alt="image" src="https://github.com/lanqiao-dev/cookie-sharer/assets/11270415/3de4d5bd-c371-4297-8e8c-0449cc7e6843">
 
 
-
-## 使用方法
-
-手动 `点击打开插件` 页面或者点击 `同步 Cookie` 按钮，提示：`同步成功` 即可刷新页面后生效。
-
-## TODO
-
-- [ ] 全自动同步，无需手动
-
-
