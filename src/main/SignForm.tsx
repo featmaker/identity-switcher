@@ -69,6 +69,7 @@ export default function SignForm({
     env: "production" | "staging"
   ) => {
     const cookie = await Cookie.get(baseUrl[env], "lqtoken");
+
     if (cookie) {
       addUser({ ...userInfo, env, lqtoken: cookie });
     }

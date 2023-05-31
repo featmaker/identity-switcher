@@ -46,6 +46,7 @@ function App() {
 
   const initSelectedIndex = async (users: User[]) => {
     const storedLqtoken = await Storage.get(LQTOKEN);
+
     if (storedLqtoken) {
       setSelectedIndex(
         users.findIndex(
@@ -56,8 +57,6 @@ function App() {
   };
 
   useEffect(() => {
-    console.log("restoreUsers");
-
     const restoreUsers = async () => {
       const storedUsers = await Storage.get(USERS);
       if (storedUsers && storedUsers[USERS].length) {
@@ -69,16 +68,11 @@ function App() {
   }, []);
 
   useEffect(() => {
-    console.log("store users", users);
-
     Storage.set(USERS, users);
     setDisplayUsers(users);
   }, [users]);
 
   useEffect(() => {
-    console.log("selectedIndex", selectedIndex);
-    console.log("users", users);
-
     if (users.length && selectedIndex > -1) {
       if (users[selectedIndex]) {
         const user = users[selectedIndex];
