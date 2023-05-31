@@ -1,31 +1,33 @@
-# Cookie 共享助手（Cookie Sharer）
+# 蓝桥用户身份切换（Identity switcher）
+
+> 减少重复，提高效率
 
 ## 开发背景
 
-本地开发调试时，往往是直接调用 Staging 环境的 API，但是由于本地无法直接登录，导致不能直接调用。
-现有的解决方式是在 staging 登录后，需要手动将 key=lqtoken 的 cookie 复制到 localhost，使本地变为登录状态。
+本地开发经常需要切换不同用户身份以访问和权限相关的页面，比如切换 学生/老师/管理员。现在的做法是到测试环境先退出当前用户，跳转 SSO 登录新用户，然后同步 cookie 到本地，本地用户身份切换完成，尤其当需要频繁切换多个用户的场景，还需要记住相关的账号密码。
+当我们在测试环境和生产环境需要切换不同身份时，也需要跳转 sso 进行登录。
+以上过程操作下来比较繁琐和低效率。本插件致力于解决（优化）此过程。
 
-缺点：
-
-1. 后端重启后导致 lqtoken 失效，需要重复上述过程。
-2. Staging 切换账号登录后，需要重复上述过程。
-3. 手动操作比较繁琐且每次需要复制命令或者查找 cookie。
+<img width="630" alt="image" src="https://github.com/lanqiao-dev/cookie-sharer/assets/11270415/1eb4e063-30e5-4e62-8e67-db97a4001f88">
 
 
-## 插件功能
+## 功能点
 
-### 支持添加自定义检测域名与目标域名并同步 cookie
+### 快速登录
 
-![image](https://user-images.githubusercontent.com/11270415/147483014-8de7171e-2afe-4e5d-a0cf-048ebb08b723.png)
+插件具有快速登录功能，不用再跳转 sso 登录，可灵活选择登录环境（staging/production）。
+<img width="630" alt="image" src="https://github.com/lanqiao-dev/cookie-sharer/assets/11270415/7b3fcea5-b0af-4001-9c5b-762dd2e6974c">
 
-![image](https://user-images.githubusercontent.com/11270415/147483423-90476142-0199-42ae-af5f-9f78ab4baa4e.png)
+登录完成后，可看到已登录成功的用户信息。
+<img width="630" alt="image" src="https://github.com/lanqiao-dev/cookie-sharer/assets/11270415/8900adee-7079-4a0f-bdb7-02e07b58cbcf">
 
-![image](https://user-images.githubusercontent.com/11270415/147482934-7b1a4882-0b57-4347-ac91-0e84d0ed2fdd.png)
+### 身份一键切换
 
-![image](https://user-images.githubusercontent.com/11270415/147483457-60c15f88-a655-4903-ab42-3786a53062e2.png)
+插件会自动记录已登录成功的用户信息，展示为一个列表。
+<img width="630" alt="image" src="https://github.com/lanqiao-dev/cookie-sharer/assets/11270415/24ac2d7d-af61-49a6-bf59-f04ffe19ebf7">
 
-1. 使用插件后，我们只需要配置好检测记录。在 staging 登录后，点击 `同步 Cookie` 按钮后即可自动将 `检测域名` 下的指定 cookie 复制到 `目标域名下`，避免手动操作。
-2. 使本地登录状态和登录身份与 staging 很方便的保持一致，提高工作效率。
+鼠标点击选择任意一个用户卡片即可实现身份切换（区分测试环境和生产环境）
+> 如果选择的用户是测试环境的用户，会自动同步对应的 lqtoken 到本地，本地刷新页面即可完成切换。
 
 ## 开发调试
 
@@ -53,7 +55,8 @@ UI 框架：[Semi-Design](https://semi.design/zh-CN/)
 1. 本地克隆项目，安装依赖，打包生产环境代码到 `build` 目录下。
 2. 在 Chrome 扩展程序管理页面，选择 `加载已解压的扩展程序` 按钮，选择上面生成的 `build` 目录。
 
-![image](https://user-images.githubusercontent.com/11270415/147488407-2ae789e0-ec80-4350-ab2e-8508dc98a3a0.png)
+<img width="413" alt="image" src="https://github.com/lanqiao-dev/cookie-sharer/assets/11270415/3de4d5bd-c371-4297-8e8c-0449cc7e6843">
+
 
 
 ## 使用方法

@@ -1,18 +1,22 @@
 {
-  "short_name": "Cookie Sharer",
-  "name": "Cookie Sharer",
-  "description": "跨域名间共享 Cookie，适用于本地与 staging 环境同步登录状态",
-  "version": "1.0",
+  "short_name": "蓝桥用户身份切换",
+  "name": "Identity switcher",
+  "description": "支持同时登录多环境中的多个用户身份，并支持一键切换",
+  "version": "2.0",
   "manifest_version": 3,
   "action": {
     "default_popup": "index.html",
-    "default_title": "Cookie Sharer"
+    "default_title": "蓝桥用户身份切换"
   },
-  "background": {
-    "service_worker": "background.js"
+  "icons": {
+    "16": "icon16.png",
+    "32": "icon32.png",
+    "48": "icon48.png"
   },
   "permissions": ["storage", "cookies", "tabs", "activeTab"],
   "host_permissions": [
-    "*://*/*"
+    "*://*.lanqiao.cn/*",
+    "*://*.shiyanlou.com/*",
+    "http://localhost/*"
   ]
 }
