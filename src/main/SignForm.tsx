@@ -47,15 +47,15 @@ export default function SignForm({
     setLoading(true);
     const { ok, message } = await Request.post(loginApi[values.env], values);
 
-    setLoading(false);
-
     if (ok) {
       const { ok, data } = await Request.get(userApi[values.env]);
       if (ok) {
+        setLoading(false);
         setVisible(false);
         storeUserInfo(data, values.env);
       }
     } else {
+      setLoading(false);
       Notification.open({
         title: "请求失败",
         content: message,

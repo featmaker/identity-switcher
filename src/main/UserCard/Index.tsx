@@ -6,28 +6,26 @@ import type { User } from "../Index";
 
 export default function UserCard({
   user,
-  index,
-  selectedIndex,
-  setSelectedIndex,
+  selectedToken,
+  setSelectedToken,
   removeUser,
 }: {
-  index: number;
   user: User;
-  selectedIndex: number;
-  setSelectedIndex: Function;
+  selectedToken: string;
+  setSelectedToken: Function;
   removeUser: Function;
 }) {
   const handleDelete = (e: any) => {
     e.preventDefault();
-    removeUser(index);
+    removeUser(user.lqtoken.value);
   };
 
-  const isSelected = index === selectedIndex;
+  const isSelected = selectedToken === user.lqtoken.value;
 
   return (
     <div
       className={["user-card", isSelected ? "selected" : ""].join(" ")}
-      onClick={() => setSelectedIndex(index)}
+      onClick={() => setSelectedToken(user.lqtoken.value)}
     >
       <Tag className={["env-label", user.env].join(" ")}>{user.env}</Tag>
       <IconClear className="btn-x" onClick={handleDelete} />

@@ -17,8 +17,8 @@ $primary: #2e7eee;
   }
 
   .avatar-wrap {
-    margin-bottom: 20px;
-    padding-bottom: 15px;
+    margin-bottom: 25px;
+    padding-bottom: 8px;
   }
 
   &.selected {
@@ -69,7 +69,7 @@ $primary: #2e7eee;
 
   .emoji-wrap {
     position: absolute;
-    bottom: -1px;
+    bottom: 2px;
     left: calc(50% - 10px);
 
     .selected-emoji {

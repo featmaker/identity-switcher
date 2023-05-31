@@ -21,7 +21,7 @@ export interface ICookie {
   path?: string;
 }
 export interface User {
-  lqtoken?: ICookie;
+  lqtoken: ICookie;
   env?: "staging" | "production";
   id: number;
   name: string;
@@ -30,29 +30,25 @@ export interface User {
 
 function App() {
   const [signFormVisible, setSignFormVisible] = useState(false);
-  const [selectedIndex, setSelectedIndex] = useState(-1);
+  const [selectedToken, setSelectedToken] = useState("");
   const [users, setUsers] = useState<User[]>([]);
   const [displayUsers, setDisplayUsers] = useState<User[]>([]);
 
   const addUser = (user: User) => {
     const newUsers = [...users, user];
     setUsers(newUsers);
-    setSelectedIndex(newUsers.length - 1);
+    setSelectedToken(user.lqtoken!.value);
   };
 
-  const removeUser = (index: number) => {
-    setUsers(users.filter((_, i) => i !== index));
+  const removeUser = (token: string) => {
+    setUsers(users.filter((u => u.lqtoken.value !== token)));
   };
 
-  const initSelectedIndex = async (users: User[]) => {
+  const initSelectedToken = async () => {
     const storedLqtoken = await Storage.get(LQTOKEN);
 
     if (storedLqtoken) {
-      setSelectedIndex(
-        users.findIndex(
-          (user) => user.lqtoken?.value === storedLqtoken[LQTOKEN].value
-        )
-      );
+      setSelectedToken(storedLqtoken[LQTOKEN].value);
     }
   };
 
@@ -61,7 +57,7 @@ function App() {
       const storedUsers = await Storage.get(USERS);
       if (storedUsers && storedUsers[USERS].length) {
         setUsers(storedUsers[USERS]);
-        initSelectedIndex(storedUsers[USERS]);
+        initSelectedToken();
       }
     };
     restoreUsers();
@@ -73,39 +69,37 @@ function App() {
   }, [users]);
 
   useEffect(() => {
-    if (users.length && selectedIndex > -1) {
-      if (users[selectedIndex]) {
-        const user = users[selectedIndex];
-        const lqtoken = users[selectedIndex].lqtoken as ICookie;
+    if (users.length && selectedToken) {
+      const user = users.find((user) => user.lqtoken.value === selectedToken);
 
-        if (lqtoken) {
-          Storage.set(LQTOKEN, lqtoken);
+      if (user) {
+        const lqtoken = user.lqtoken as ICookie;
+        Storage.set(LQTOKEN, lqtoken);
 
-          // 同步 cookie 到目标环境
+        // 同步 cookie 到目标环境
+        Cookie.syncToTarget({
+          name: lqtoken.name,
+          value: lqtoken.value,
+          path: lqtoken.path,
+          domain: lqtoken.domain,
+          expirationDate: lqtoken.expirationDate,
+          url: baseUrl[user.env!],
+        });
+
+        // 测试环境自动同步本地
+        if (user.env === "staging") {
+          // 同步到本地
           Cookie.syncToTarget({
             name: lqtoken.name,
             value: lqtoken.value,
-            path: lqtoken.path,
-            domain: lqtoken.domain,
+            domain: "localhost",
+            url: "http://localhost",
             expirationDate: lqtoken.expirationDate,
-            url: baseUrl[user.env!],
           });
-
-          // 测试环境自动同步本地
-          if (user.env === "staging") {
-            // 同步到本地
-            Cookie.syncToTarget({
-              name: lqtoken.name,
-              value: lqtoken.value,
-              domain: "localhost",
-              url: "http://localhost",
-              expirationDate: lqtoken.expirationDate,
-            });
-          }
         }
       }
     }
-  }, [selectedIndex, users]);
+  }, [selectedToken, users]);
 
   const onSelectChange = (env: any) => {
     if (env === "all") {
@@ -135,9 +129,8 @@ function App() {
               <UserCard
                 key={user.id}
                 user={user}
-                index={index}
-                selectedIndex={selectedIndex}
-                setSelectedIndex={setSelectedIndex}
+                selectedToken={selectedToken}
+                setSelectedToken={setSelectedToken}
                 removeUser={removeUser}
               />
             ))}
