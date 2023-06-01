@@ -8,7 +8,7 @@
 当我们在测试环境和生产环境需要切换不同身份时，也需要跳转 sso 进行登录。
 以上过程操作下来比较繁琐和低效率。本插件致力于解决（优化）此过程。
 
-<img width="630" alt="image" src="https://github.com/lanqiao-dev/cookie-sharer/assets/11270415/1eb4e063-30e5-4e62-8e67-db97a4001f88">
+<img width="630" alt="image" src="https://labfile.oss.aliyuncs.com/courses/619/t1.png">
 
 
 ## 功能点
@@ -17,16 +17,16 @@
 
 插件具有快速登录功能，不用再跳转 sso 登录，可灵活选择登录环境（staging/production）。
 
-<img width="630" alt="image" src="https://github.com/lanqiao-dev/cookie-sharer/assets/11270415/7b3fcea5-b0af-4001-9c5b-762dd2e6974c">
+<img width="630" alt="image" src="https://labfile.oss.aliyuncs.com/courses/619/t2.png">
 
 登录完成后，可看到已登录成功的用户信息。
 
-<img width="630" alt="image" src="https://github.com/lanqiao-dev/cookie-sharer/assets/11270415/8900adee-7079-4a0f-bdb7-02e07b58cbcf">
+<img width="630" alt="image" src="https://labfile.oss.aliyuncs.com/courses/619/t3.png">
 
 ### 身份一键切换
 
 插件会自动记录已登录成功的用户信息，展示为一个列表。
-<img width="630" alt="image" src="https://github.com/lanqiao-dev/cookie-sharer/assets/11270415/24ac2d7d-af61-49a6-bf59-f04ffe19ebf7">
+<img width="630" alt="image" src="https://labfile.oss.aliyuncs.com/courses/619/t4.png">
 
 鼠标点击选择任意一个用户卡片即可实现身份切换（区分测试环境和生产环境）
 > `如果选择的用户是测试环境的用户，会自动同步对应的 lqtoken 到本地，本地刷新页面即可完成切换。`
