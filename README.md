@@ -16,9 +16,11 @@
 ### 快速登录
 
 插件具有快速登录功能，不用再跳转 sso 登录，可灵活选择登录环境（staging/production）。
+
 <img width="630" alt="image" src="https://github.com/lanqiao-dev/cookie-sharer/assets/11270415/7b3fcea5-b0af-4001-9c5b-762dd2e6974c">
 
 登录完成后，可看到已登录成功的用户信息。
+
 <img width="630" alt="image" src="https://github.com/lanqiao-dev/cookie-sharer/assets/11270415/8900adee-7079-4a0f-bdb7-02e07b58cbcf">
 
 ### 身份一键切换
@@ -27,7 +29,7 @@
 <img width="630" alt="image" src="https://github.com/lanqiao-dev/cookie-sharer/assets/11270415/24ac2d7d-af61-49a6-bf59-f04ffe19ebf7">
 
 鼠标点击选择任意一个用户卡片即可实现身份切换（区分测试环境和生产环境）
-> 如果选择的用户是测试环境的用户，会自动同步对应的 lqtoken 到本地，本地刷新页面即可完成切换。
+> `如果选择的用户是测试环境的用户，会自动同步对应的 lqtoken 到本地，本地刷新页面即可完成切换。`
 
 ## 开发调试
 
@@ -50,11 +52,8 @@ UI 框架：[Semi-Design](https://semi.design/zh-CN/)
 
 ## 插件安装
 
-由于插件尚未上架到 `Chrome Web Store`，暂时只能通过本地加载插件目录的方式安装，安装步骤如下：
+由于插件正在发布 `Chrome Web Store`（审核中），可以下载插件文件自行拖动到浏览器中安装使用：
 
-1. 本地克隆项目，安装依赖，打包生产环境代码到 `build` 目录下。
-2. 在 Chrome 扩展程序管理页面，选择 `加载已解压的扩展程序` 按钮，选择上面生成的 `build` 目录。
-
-<img width="413" alt="image" src="https://github.com/lanqiao-dev/cookie-sharer/assets/11270415/3de4d5bd-c371-4297-8e8c-0449cc7e6843">
+[点击下载](https://labfile.oss.aliyuncs.com/courses/619/nbkgjdlaffbfpdffmbkidhghbnnihocl_main.crx)
 
 
