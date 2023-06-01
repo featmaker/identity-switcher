@@ -56,4 +56,6 @@ UI 框架：[Semi-Design](https://semi.design/zh-CN/)
 
 [点击下载](https://labfile.oss.aliyuncs.com/courses/619/nbkgjdlaffbfpdffmbkidhghbnnihocl_main.crx)
 
+## 插件使用
 
+<img width="630" alt="image" src="https://labfile.oss.aliyuncs.com/courses/619/t5.jpg">
