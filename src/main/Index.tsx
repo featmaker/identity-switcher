@@ -20,6 +20,7 @@ export interface ICookie {
   hostOnly?: boolean;
   path?: string;
 }
+
 export interface User {
   lqtoken: ICookie;
   env?: "staging" | "production";
@@ -41,7 +42,7 @@ function App() {
   };
 
   const removeUser = (token: string) => {
-    setUsers(users.filter((u => u.lqtoken.value !== token)));
+    setUsers(users.filter((u) => u.lqtoken.value !== token));
   };
 
   const initSelectedToken = async () => {
@@ -55,7 +56,7 @@ function App() {
   useEffect(() => {
     const restoreUsers = async () => {
       const storedUsers = await Storage.get(USERS);
-      if (storedUsers && storedUsers[USERS].length) {
+      if (storedUsers && storedUsers[USERS]?.length) {
         setUsers(storedUsers[USERS]);
         initSelectedToken();
       }

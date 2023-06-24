@@ -15,12 +15,12 @@ export const ssoBaseUrl = {
   production: "https://passport.lanqiao.cn",
 };
 
-const loginApi = {
+export const loginApi = {
   staging: `${ssoBaseUrl.staging}/api/v1/login/`,
   production: `${ssoBaseUrl.production}/api/v1/login/`,
 };
 
-const userApi = {
+export const userApi = {
   staging: `${baseUrl.staging}/api/v2/user/`,
   production: `${baseUrl.production}/api/v2/user/`,
 };

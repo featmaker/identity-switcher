@@ -2,7 +2,7 @@ $primary: #2e7eee;
 
 .user-card {
   position: relative;
-  padding: 25px 20px 5px;
+  padding: 25px 20px 10px;
   border-radius: 12px;
   border: 2px solid #d9d9d9;
   cursor: pointer;
@@ -16,19 +16,14 @@ $primary: #2e7eee;
     opacity: 0;
   }
 
-  .avatar-wrap {
-    margin-bottom: 25px;
-    padding-bottom: 8px;
-  }
-
   &.selected {
     border-color: #08bf91;
     box-shadow: 0px 0px 8px 4px rgba(0, 0, 0, 0.1);
     transform: scale(1.05);
+  }
 
-    .avatar-wrap {
-      border-bottom: 1px solid #08bf91;
-    }
+  &.expired {
+    border-color: rgba(var(--semi-red-5), 0.5);
   }
 
   &:hover {
@@ -40,37 +35,66 @@ $primary: #2e7eee;
     }
   }
 
-  .env-label {
+  .tags-wrap {
     position: absolute;
-    left: 1px;
     top: 1px;
-    background-color: $primary;
-    color: #fff;
-    border-radius: 10px 0 10px 0;
-    font-size: 12px;
-    font-weight: 500;
+    left: 1px;
 
-    &.staging {
-      background-color: rgba(var(--semi-yellow-6), 1);
+    .env-label {
+      margin-right: 5px;
+      background-color: $primary;
+      color: #fff;
+      border-radius: 10px 0 10px 0;
+      font-size: 12px;
+      font-weight: 500;
+
+      &.staging {
+        background-color: rgba(var(--semi-yellow-6), 1);
+      }
     }
   }
 
-  .user-name {
-    display: inline-block;
-    margin-top: 5px;
-    font-size: 14px;
+  .avatar-wrap {
+    margin-bottom: 24px;
+    padding-bottom: 8px;
     color: #666;
-    font-weight: 500;
-    max-width: 80px;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
+
+    .user-name {
+      display: inline-block;
+      margin-top: 5px;
+      font-size: 14px;
+      font-weight: 500;
+      max-width: 80px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    &.selected {
+      color: #08bf91;
+      border-bottom: 1px solid #08bf91;
+
+      .avatar {
+        border: 2px solid #08bf91;
+      }
+    }
+
+    &.expired {
+      color: rgba(var(--semi-red-5), 0.5);
+      border-bottom: 1px solid rgba(var(--semi-red-5), 0.5);
+
+      .avatar {
+        border: 2px solid rgba(var(--semi-red-5), 0.5);
+      }
+    }
   }
 
-  .emoji-wrap {
+  .footer-wrap {
     position: absolute;
-    bottom: 2px;
-    left: calc(50% - 10px);
+    bottom: 4px;
+    left: 0;
+    text-align: center;
+    width: 100%;
 
     .selected-emoji {
       color: #08bf91;
