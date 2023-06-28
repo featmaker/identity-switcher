@@ -1,3 +1,18 @@
+.user-list {
+  display: flex;
+  flex-wrap: wrap;
+  padding: 20px 15px;
+  max-height: 474px;
+  overflow: auto;
+}
+
+.align-center {
+  .semi-tabs-bar {
+    display: flex;
+    justify-content: center;
+  }
+}
+
 .operate-btns {
-  margin-top: 25px;
+  padding: 15px 0;
 }

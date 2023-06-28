@@ -2,7 +2,7 @@
   "short_name": "蓝桥多用户切换助手",
   "name": "蓝桥多用户切换助手",
   "description": "同时支持登录测试环境和生产环境，记录已登录的用户列表，支持用户一键切换并同步到本地开发环境。",
-  "version": "2.1",
+  "version": "2.3",
   "manifest_version": 3,
   "action": {
     "default_popup": "index.html",

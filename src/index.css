@@ -1,6 +1,6 @@
 body {
   width: 650px;
-  min-height: 380px;
+  min-height: 400px;
   text-align: center;
 }
 
@@ -47,8 +47,4 @@ code {
 
 .text-align {
   text-align: center;
-}
-
-.container {
-  padding: 15px;
 }

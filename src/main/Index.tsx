@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import UserCard from "./UserCard/Index";
-import { Button, CardGroup, Select, Empty } from "@douyinfe/semi-ui";
+import { Button, Empty, Tabs, TabPane, Spin } from "@douyinfe/semi-ui";
 import { IconUserAdd } from "@douyinfe/semi-icons";
 import { IllustrationNoContent } from "@douyinfe/semi-illustrations";
 import SignForm from "./SignForm";
@@ -18,6 +18,11 @@ export interface ICookie {
   value: string;
   domain: string;
   hostOnly?: boolean;
+  httpOnly?: boolean;
+  sameSite: "strict" | "lax" | "none";
+  secure: boolean;
+  session: boolean;
+  storeId: string;
   path?: string;
 }
 
@@ -33,7 +38,11 @@ function App() {
   const [signFormVisible, setSignFormVisible] = useState(false);
   const [selectedToken, setSelectedToken] = useState("");
   const [users, setUsers] = useState<User[]>([]);
-  const [displayUsers, setDisplayUsers] = useState<User[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  const [stagingUsers, setStagingUsers] = useState<User[]>([]);
+  const [productionUsers, setProductionUsers] = useState<User[]>([]);
+  const [activeTab, setActiveTab] = useState("staging");
 
   const addUser = (user: User) => {
     const newUsers = [...users, user];
@@ -54,6 +63,8 @@ function App() {
   };
 
   useEffect(() => {
+    setLoading(true);
+
     const restoreUsers = async () => {
       const storedUsers = await Storage.get(USERS);
       if (storedUsers && storedUsers[USERS]?.length) {
@@ -62,11 +73,15 @@ function App() {
       }
     };
     restoreUsers();
+    setTimeout(() => {
+      setLoading(false);
+    }, 0);
   }, []);
 
   useEffect(() => {
     Storage.set(USERS, users);
-    setDisplayUsers(users);
+    setStagingUsers(users.filter((user) => user.env === "staging"));
+    setProductionUsers(users.filter((user) => user.env === "production"));
   }, [users]);
 
   useEffect(() => {
@@ -87,6 +102,10 @@ function App() {
           url: baseUrl[user.env!],
         });
 
+        // 清除缓存的用户信息
+        Cookie.remove(baseUrl[user.env!], "auth_user_basic");
+        Cookie.remove(baseUrl[user.env!], "auth_updated_at");
+
         // 测试环境自动同步本地
         if (user.env === "staging") {
           // 同步到本地
@@ -102,47 +121,91 @@ function App() {
     }
   }, [selectedToken, users]);
 
-  const onSelectChange = (env: any) => {
-    if (env === "all") {
-      setDisplayUsers(users);
-    } else {
-      setDisplayUsers(users.filter((user) => user.env === env));
-    }
+  const onTabChange = (key: string) => {
+    setActiveTab(key);
   };
 
   return (
     <>
       {users.length ? (
-        <Select
-          defaultValue="all"
-          style={{ width: 200, marginBottom: 20 }}
-          onChange={onSelectChange}
+        <Tabs
+          className="align-center"
+          activeKey={activeTab}
+          onChange={onTabChange}
         >
-          <Select.Option value="all">全部(All)</Select.Option>
-          <Select.Option value="staging">测试环境(Staging)</Select.Option>
-          <Select.Option value="production">生产环境(Production)</Select.Option>
-        </Select>
-      ) : null}
-      {displayUsers.length ? (
-        <div className="user-list">
-          <CardGroup spacing={20}>
-            {displayUsers.map((user, index) => (
-              <UserCard
-                key={user.id}
-                user={user}
-                selectedToken={selectedToken}
-                setSelectedToken={setSelectedToken}
-                removeUser={removeUser}
-              />
-            ))}
-          </CardGroup>
-        </div>
+          <TabPane tab={<span>测试环境</span>} itemKey="staging">
+            <div className="user-list" style={{ display: "flex" }}>
+              {loading ? (
+                <div style={{ width: "100%" }}>
+                  <Spin
+                    tip="加载中..."
+                    style={{ width: "100%", height: "100px" }}
+                  />
+                </div>
+              ) : stagingUsers.length ? (
+                stagingUsers.map((user, index) => (
+                  <UserCard
+                    key={user.lqtoken.value}
+                    user={user}
+                    selectedToken={selectedToken}
+                    setSelectedToken={setSelectedToken}
+                    removeUser={removeUser}
+                  />
+                ))
+              ) : (
+                <div style={{ textAlign: "center", width: "100%" }}>
+                  <Empty
+                    image={
+                      <IllustrationNoContent
+                        style={{ width: 150, height: 150 }}
+                      />
+                    }
+                    title="暂无用户"
+                    description="点击下方登录按钮添加用户"
+                  ></Empty>
+                </div>
+              )}
+            </div>
+          </TabPane>
+          <TabPane tab={<span>生产环境</span>} itemKey="production">
+            <div className="user-list">
+              {productionUsers.length ? (
+                productionUsers.map((user, index) => (
+                  <UserCard
+                    key={user.lqtoken.value}
+                    user={user}
+                    selectedToken={selectedToken}
+                    setSelectedToken={setSelectedToken}
+                    removeUser={removeUser}
+                  />
+                ))
+              ) : (
+                <div style={{ textAlign: "center", width: "100%" }}>
+                  <Empty
+                    image={
+                      <IllustrationNoContent
+                        style={{ width: 150, height: 150 }}
+                      />
+                    }
+                    title="暂无用户"
+                    description="点击下方登录按钮添加用户"
+                  ></Empty>
+                </div>
+              )}
+            </div>
+          </TabPane>
+        </Tabs>
       ) : (
-        <Empty
-          image={<IllustrationNoContent style={{ width: 150, height: 150 }} />}
-          title="暂无用户"
-          description="点击下方登录按钮添加用户"
-        ></Empty>
+        !loading && (
+          <Empty
+            image={
+              <IllustrationNoContent style={{ width: 150, height: 150 }} />
+            }
+            title="暂无用户"
+            description="点击下方登录按钮添加用户"
+            style={{ marginBottom: 20, marginTop: 40 }}
+          ></Empty>
+        )
       )}
       <div className="operate-btns">
         <Button
@@ -156,6 +219,8 @@ function App() {
       </div>
       <SignForm
         visible={signFormVisible}
+        activeTab={activeTab}
+        setActiveTab={setActiveTab}
         setVisible={setSignFormVisible}
         addUser={addUser}
       />

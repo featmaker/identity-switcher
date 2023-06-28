@@ -1,5 +1,6 @@
 import { Avatar, Tag } from "@douyinfe/semi-ui";
 import { IconTickCircle, IconClear } from "@douyinfe/semi-icons";
+import dayjs from "dayjs";
 
 import "./index.scss";
 import type { User } from "../Index";
@@ -22,6 +23,10 @@ export default function UserCard({
 }) {
   const isSelected = selectedToken === user.lqtoken.value;
   const isExpired = user.lqtoken.expirationDate * 1000 < Date.now();
+  const expiredDays = dayjs(user.lqtoken.expirationDate * 1000).diff(
+    dayjs(),
+    "day"
+  );
 
   const handleDelete = (e: any) => {
     e.preventDefault();
@@ -74,12 +79,16 @@ export default function UserCard({
         <div className="footer-wrap">
           <Tag color="red">已过期</Tag>
         </div>
+      ) : isSelected ? (
+        <div className="footer-wrap">
+          <IconTickCircle className="selected-emoji" size="large" />
+        </div>
       ) : (
-        isSelected && (
-          <div className="footer-wrap">
-            <IconTickCircle className="selected-emoji" size="large" />
-          </div>
-        )
+        <div className="footer-wrap">
+          <Tag color={expiredDays > 3 ? "green" : "yellow"}>
+            有效期: {expiredDays}天
+          </Tag>
+        </div>
       )}
     </div>
   );

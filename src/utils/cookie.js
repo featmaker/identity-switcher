@@ -8,6 +8,10 @@ export default class Cookie {
     return cookie;
   }
 
+  static async remove(url, name) {
+    return chrome.cookies.remove({ url, name });
+  }
+
   static async set(cookie) {
     return chrome.cookies.set(cookie);
   }

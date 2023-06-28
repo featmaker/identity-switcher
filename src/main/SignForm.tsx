@@ -21,7 +21,7 @@ export const loginApi = {
 };
 
 export const userApi = {
-  staging: `${baseUrl.staging}/api/v2/user/`,
+  staging: `${baseUrl.staging}/api/v2/user/basic/`,
   production: `${baseUrl.production}/api/v2/user/`,
 };
 
@@ -32,10 +32,14 @@ interface SubmitValues {
 }
 
 export default function SignForm({
+  activeTab,
+  setActiveTab,
   visible,
   setVisible,
   addUser,
 }: {
+  activeTab: string;
+  setActiveTab: Function;
   visible: boolean;
   setVisible: Function;
   addUser: Function;
@@ -50,6 +54,7 @@ export default function SignForm({
     if (ok) {
       const { ok, data } = await Request.get(userApi[values.env]);
       if (ok) {
+        setActiveTab(values.env);
         setLoading(false);
         setVisible(false);
         storeUserInfo(data, values.env);
@@ -114,7 +119,7 @@ export default function SignForm({
             <Form.Select
               label="环境选择"
               field="env"
-              initValue="staging"
+              initValue={activeTab}
               style={{ width: "100%" }}
             >
               <Form.Select.Option value="staging">

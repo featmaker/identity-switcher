@@ -1,12 +1,18 @@
 $primary: #2e7eee;
 
 .user-card {
+  margin-right: 17px;
+  margin-bottom: 20px;
   position: relative;
-  padding: 25px 20px 10px;
+  padding: 25px 24px 10px;
   border-radius: 12px;
   border: 2px solid #d9d9d9;
   cursor: pointer;
   transition: all 0.15s ease-in-out;
+
+  &:nth-child(4n) {
+    margin-right: 0;
+  }
 
   .btn-x {
     position: absolute;
@@ -19,7 +25,7 @@ $primary: #2e7eee;
   &.selected {
     border-color: #08bf91;
     box-shadow: 0px 0px 8px 4px rgba(0, 0, 0, 0.1);
-    transform: scale(1.05);
+    transform: scale(1.06);
   }
 
   &.expired {
@@ -28,7 +34,7 @@ $primary: #2e7eee;
 
   &:hover {
     box-shadow: 0px 0px 8px 4px rgba(0, 0, 0, 0.1);
-    transform: scale(1.05);
+    transform: scale(1.06);
 
     .btn-x {
       opacity: 1;
@@ -55,9 +61,11 @@ $primary: #2e7eee;
   }
 
   .avatar-wrap {
-    margin-bottom: 24px;
+    margin-bottom: 10px;
     padding-bottom: 8px;
     color: #666;
+    box-sizing: border-box;
+    border-bottom: 1px solid #eee;
 
     .user-name {
       display: inline-block;
@@ -65,6 +73,7 @@ $primary: #2e7eee;
       font-size: 14px;
       font-weight: 500;
       max-width: 80px;
+      line-height: 20px;
       overflow: hidden;
       text-overflow: ellipsis;
       white-space: nowrap;
@@ -90,11 +99,9 @@ $primary: #2e7eee;
   }
 
   .footer-wrap {
-    position: absolute;
-    bottom: 4px;
-    left: 0;
-    text-align: center;
-    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 
     .selected-emoji {
       color: #08bf91;
